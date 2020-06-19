@@ -1,15 +1,6 @@
 pipeline {
      agent any
      stages {
-         stage('Build') {
-             steps {
-                 sh 'echo "Hello World"'
-                 sh '''
-                     echo "Multiline shell steps works too"
-                     ls -lah
-                 '''
-             }
-         }
          stage('Lint HTML') {
               steps {
                   sh 'tidy -q -e *.html'
@@ -20,8 +11,38 @@ pipeline {
                  //aquaMicroscanner imageName: 'alpine:latest', notCompleted: 'exit 1', onDisallowed: 'fail'
                  aquaMicroscanner imageName: 'alpine:latest', notCompliesCmd: 'exit 1', onDisallowed: 'fail', outputFormat: 'html'
               }
-         }         
-         /*stage('Upload to AWS') {
+         }
+         stage('Build Docker Container') {
+             steps {
+                 sh './run_docker.sh'
+             }
+         }
+         /*stage('Push Docker Image') {
+             steps {
+                 sh './push_docker.sh'
+             }
+         }
+         stage('AWS Credentials') {
+            step {
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'Jenkins', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                sh """
+                    mkdir -p ~/.aws
+                    echo "[default]" >~/.aws/credentials
+                    echo "[default]" >~/.boto
+                    echo "aws_access_key_id" = ${AWS_ACCESS_KEY_ID}" >>~/.boto
+                    echo "aws_secret_access_key" = ${AWS_SECRET_ACCESS_KEY}" >>~/.boto
+                    echo "aws_access_key_id" = ${AWS_ACCESS_KEY_ID}" >>~/.aws/credentials
+                    echo "aws_secret_access_key" = ${AWS_SECRET_ACCESS_KEY}" >>~/.aws/credentials
+                """
+                }
+            }
+         }
+         stage('Create EC2 Instance') {
+            steps {
+                ansiblePlaybook playbook: 'main.yaml', inventory: 'inventory'
+            }
+         }
+         stage('Upload to AWS') {
               steps {
                   withAWS(region:'us-east-2',credentials:'aws-static') {
                   sh 'echo "Uploading content with AWS creds"'

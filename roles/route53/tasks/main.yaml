@@ -1,0 +1,14 @@
+- name: change route53
+  route53:
+    state: present
+    zone: test.com
+    record: www.test.com
+    failover: PRIMARY
+    type: CNAME
+    ttl: 30
+    identifier: server1
+    private_zone: yes
+    overwrite: yes
+    value: "{{ NEW_ALIAS }}"
+    wait: yes
+    health_check: "a493f5cb-976a-49c1-a708-eb1623d8ce92"

@@ -1,16 +1,7 @@
 #!/usr/bin/env bash
-
-# Build image
-docker build --tag=app .
-
-# List docker images
+docker build -t my-nginx-app .
 docker image ls
+docker run --rm -it -p 8081:80 my-nginx-app
 
-# Run flask app
-docker run -it app bash
-#docker run -po 8000:5001 app
-#docker run -it --rm --name my-running-app app
-
-# Testing inside docker env
-# uname
-# python app.py
+#docker rmi <image>:<tag>
+#curl localhost:8081
