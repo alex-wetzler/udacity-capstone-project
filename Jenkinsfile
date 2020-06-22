@@ -12,6 +12,11 @@ pipeline {
                  aquaMicroscanner imageName: 'alpine:latest', notCompliesCmd: 'exit 1', onDisallowed: 'fail', outputFormat: 'html'
               }
          }
+         stage('Test') {
+              steps {
+                sh 'aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 731758322990.dkr.ecr.eu-central-1.amazonaws.com'
+              }
+         }
          stage('Build, Run & Push Docker Container') {
              steps {
                  sh './docker.sh'
