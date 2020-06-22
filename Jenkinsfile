@@ -14,7 +14,11 @@ pipeline {
          }
          stage('Test') {
               steps {
-                sh 'aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 731758322990.dkr.ecr.eu-central-1.amazonaws.com'
+                sh 'cd ~'
+                sh 'whoami'
+                sh 'aws configure list'
+                #aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 731758322990.dkr.ecr.eu-central-1.amazonaws.com
+                #sh 'aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 731758322990.dkr.ecr.eu-central-1.amazonaws.com'
               }
          }
          stage('Build, Run & Push Docker Container') {
