@@ -12,9 +12,9 @@ pipeline {
                  aquaMicroscanner imageName: 'alpine:latest', notCompliesCmd: 'exit 1', onDisallowed: 'fail', outputFormat: 'html'
               }
          }
-         stage('Build Docker Container') {
+         stage('Build, Run & Push Docker Container') {
              steps {
-                 sh './run_docker.sh'
+                 sh './docker.sh'
              }
          }
          /*stage('Push Docker Image') {
