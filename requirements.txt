@@ -1,4 +1,0 @@
-click
-pylint
-pytest
-nbval

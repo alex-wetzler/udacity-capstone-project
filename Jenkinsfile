@@ -13,7 +13,7 @@ pipeline {
               }
          }
          stage('AWS Credentials') {
-            step {
+            steps {
                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'Jenkins', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                 sh """
                     mkdir -p ~/.aws
