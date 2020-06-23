@@ -8,8 +8,17 @@ pipeline {
          }
          stage('Security Scan') {
               steps { 
-                 //aquaMicroscanner imageName: 'alpine:latest', notCompleted: 'exit 1', onDisallowed: 'fail'
                  aquaMicroscanner imageName: 'alpine:latest', notCompliesCmd: 'exit 1', onDisallowed: 'fail', outputFormat: 'html'
+              }
+         }
+         stage('Build Docker') {
+              steps { 
+                 sh 'docker build -t udacity-capstone-project .'
+              }
+         }
+        stage('Run Docker') {
+              steps { 
+                 sh 'docker run --rm -d -p 8081:80 --name udacity-capstone-project udacity-capstone-project'
               }
          }
          stage('AWS Credentials') {
@@ -24,7 +33,13 @@ pipeline {
                 }
             }
          }
-         stage('Test') {
+         stage('Push to ECR') {
+              steps { 
+                 sh 'docker tag udacity-capstone-project:latest 731758322990.dkr.ecr.eu-central-1.amazonaws.com/udacity-capstone-project:latest'
+                 sh 'docker push 731758322990.dkr.ecr.eu-central-1.amazonaws.com/udacity-capstone-project:latest'
+              }
+         }
+         /*stage('Test') {
               steps {
                 sh """
                     cd ~
@@ -39,7 +54,7 @@ pipeline {
                  sh './docker.sh'
              }
          }
-         /*stage('Push Docker Image') {
+         stage('Push Docker Image') {
              steps {
                  sh './push_docker.sh'
              }
