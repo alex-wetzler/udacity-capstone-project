@@ -17,19 +17,21 @@ pipeline {
                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: 'Jenkins', secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                 sh """
                     mkdir -p ~/.aws
-                    echo "[default]" >~/.aws/credentials
-                    echo "aws_access_key_id" = ${AWS_ACCESS_KEY_ID}" >>~/.aws/credentials
-                    echo "aws_secret_access_key" = ${AWS_SECRET_ACCESS_KEY}" >>~/.aws/credentials
+                    echo "[default]" > ~/.aws/credentials
+                    echo "aws_access_key_id = ${AWS_ACCESS_KEY_ID}" >> ~/.aws/credentials
+                    echo "aws_secret_access_key = ${AWS_SECRET_ACCESS_KEY}" >> ~/.aws/credentials
                 """
                 }
             }
          }
          stage('Test') {
               steps {
-                sh 'cd ~'
-                sh 'whoami'
-                sh 'aws configure list'
-                sh 'aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 731758322990.dkr.ecr.eu-central-1.amazonaws.com'
+                sh """
+                    cd ~
+                    whoami
+                    aws configure list
+                    aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 731758322990.dkr.ecr.eu-central-1.amazonaws.com
+                """
               }
          }
          stage('Build, Run & Push Docker Container') {
