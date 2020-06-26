@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: udacity-deployment
+  namespace: default
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: udacity-capstone-project
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  template:
+    metadata:
+      labels:
+        app: udacity-capstone-project
+    spec:
+      containers:
+        - name: udacity-capstone-project
+          image: 731758322990.dkr.ecr.eu-central-1.amazonaws.com/udacity-capstone-project:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80

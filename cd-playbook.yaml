@@ -1,0 +1,13 @@
+
+- name: CD-Job
+  hosts: [localhost]
+  become: true
+  #become_user: root
+
+  tasks:
+  - name: create deplyoment
+    command: kubectl apply -f deployment.yaml
+  - name: update deployment (with rollout restart) 
+    command: kubectl rollout restart deployment.v1.apps/udacity-deployment
+  - name: create service
+    command: kubectl apply -f service.yaml

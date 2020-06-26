@@ -1,0 +1,22 @@
+
+- name: CI-Job
+  hosts: localhost
+  gather_facts: false
+  #become: true
+
+  tasks:
+  #- name: lint application
+  #  command: tidy -q -e *.html
+  #- name: scan for security
+  #  command: aquaMicroscanner imageName: 'alpine:latest', notCompliesCmd: 'exit 1', onDisallowed: 'fail', outputFormat: 'html'
+  #- name: authenticate to ECR
+  #  command: aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 731758322990.dkr.ecr.eu-central-1.amazonaws.com
+  - name: create docker image
+    command: docker build -t udacity-capstone-project:latest .
+  - name: tag docker image
+    command: docker tag udacity-capstone-project:latest 731758322990.dkr.ecr.eu-central-1.amazonaws.com/udacity-capstone-project:latest
+  #- name: push image to Amazon ECR
+  #  command: docker push 731758322990.dkr.ecr.eu-central-1.amazonaws.com/udacity-capstone-project:latest
+  - name: remove docker image
+    command: docker rmi udacity-capstone-project:latest 731758322990.dkr.ecr.eu-central-1.amazonaws.com/udacity-capstone-project:latest
+    ignore_errors: yes
