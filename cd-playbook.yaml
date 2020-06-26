@@ -1,10 +1,12 @@
-
 - name: CD-Job
-  hosts: [localhost]
-  become: true
+  hosts: local
+  gather_facts: false
+  #become: true
   #become_user: root
 
   tasks:
+  #- name: authenticate to ECR
+  #  command: docker login 731758322990.dkr.ecr.eu-central-1.amazonaws.com
   - name: create deplyoment
     command: kubectl apply -f deployment.yaml
   - name: update deployment (with rollout restart) 

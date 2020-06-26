@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: udacity-deployment
+  labels:
+    app: udacity-capstone-project
   namespace: default
 spec:
   replicas: 2
