@@ -8,12 +8,12 @@
     shell: |
       cd ~
       whoami
-  #    aws configure list
-  #    pwd
-  #    ls ~/environment/udacity-capstone-project/*.html
-  #  register: shell_result
-  #- debug:
-  #    var: shell_result.stdout_lines
+      aws configure list
+      pwd
+      ls ~/environment/udacity-capstone-project/*.html
+    register: shell_result
+  - debug:
+      var: shell_result.stdout_lines
   #- name: lint application
   #  shell: 
   #    cmd: tidy -q -e *.html
