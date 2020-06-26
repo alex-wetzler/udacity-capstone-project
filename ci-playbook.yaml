@@ -10,7 +10,7 @@
       whoami
       aws configure list
       pwd
-      ls ~/environment/udacity-capstone-project/*.html
+     #ls ~/environment/udacity-capstone-project/*.html
     register: shell_result
   - debug:
       var: shell_result.stdout_lines
