@@ -1,0 +1,37 @@
+- name: K8s-Job
+  hosts: local
+  gather_facts: false
+
+  tasks:
+  - name: create S3 bucket if not exist
+    command: aws s3 mb s3://k8sconfig.udacity.net
+    ignore_errors: yes
+  #- name: create SSH key
+  #  command: ssh-keygen
+  - name: export S3 bucket name
+    command: export KOPS_STATE_STORE=s3://k8sconfig.udacity.net
+  - name: create cluster configuration
+    command: kops create cluster \
+        --name k8s.udacity.net \
+        --state ${KOPS_STATE_STORE} \
+        --cloud aws \
+        --master-size t2.micro \
+        --master-count 1 \
+        --master-zones eu-central-1a \
+        --node-size t2.micro \
+        --node-count 2 \
+        --zones eu-central-1a,eu-central-1b \
+        --dns-zone udacity.net \
+        --dns private  \
+        --ssh-public-key ~/.ssh/id_rsa.pub
+  - name: spin up cluster with config
+    command: kops update cluster --name k8s.udacity.net --yes
+
+#- name: Wait for servers to come online
+#  wait_for:
+#    host: "{{ item.public_ip }}"
+#    port: 80
+#    timeout: 180
+#  with_items: "{{ ec2_instances.tagged_instances }}"
+#  ignore_errors: True
+
