@@ -20,8 +20,8 @@
       cmd: tidy -q -e index.html
       #chdir: ~/environment/udacity-capstone-project/
   - name: authenticate to ECR
-    #command: aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 731758322990.dkr.ecr.eu-central-1.amazonaws.com
-    command: docker login 731758322990.dkr.ecr.eu-central-1.amazonaws.com
+    command: aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 731758322990.dkr.ecr.eu-central-1.amazonaws.com
+    #command: docker login 731758322990.dkr.ecr.eu-central-1.amazonaws.com
   - name: create docker image
     command: docker build -t udacity-capstone-project:latest .
   - name: tag docker image
