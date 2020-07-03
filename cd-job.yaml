@@ -1,8 +1,8 @@
 - name: CD-Job
   hosts: local
   gather_facts: false
-  become: true
-  become_user: root
+  #become: true
+  #become_user: root
 
   tasks:
   #- name: authenticate to ECR
