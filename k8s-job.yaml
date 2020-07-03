@@ -8,8 +8,8 @@
     ignore_errors: yes
   #- name: create SSH key
   #  command: ssh-keygen
-  - name: export S3 bucket name
-    command: export KOPS_STATE_STORE=s3://k8sconfig.udacity.net
+  #- name: export S3 bucket name
+  #  command: export KOPS_STATE_STORE=s3://k8sconfig.udacity.net
   - name: create cluster configuration
     command: kops create cluster \
         --name k8s.udacity.net \
@@ -26,6 +26,8 @@
         --ssh-public-key ~/.ssh/id_rsa.pub
   - name: spin up cluster with config
     command: kops update cluster --name k8s.udacity.net --yes
+  - nane: validate cluster
+    command: kops validate cluster --name k8s.udacity.net
 
 #- name: Wait for servers to come online
 #  wait_for:
@@ -34,4 +36,3 @@
 #    timeout: 180
 #  with_items: "{{ ec2_instances.tagged_instances }}"
 #  ignore_errors: True
-
