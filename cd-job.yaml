@@ -5,9 +5,10 @@
   #become_user: root
 
   tasks:
-  #- name: authenticate to ECR
-  #  command: docker login 731758322990.dkr.ecr.eu-central-1.amazonaws.com
+  #- name: authenticate to ECR -> not necessary because amazon-ecr-credential-helper is used (https://github.com/awslabs/amazon-ecr-credential-helper)
+    #command: aws ecr get-login-password --region eu-central-1 | docker login --username AWS --password-stdin 731758322990.dkr.ecr.eu-central-1.amazonaws.com
   - name: create deplyoment
+    # it was necessary to set-up kubeconfig for user jenkins (/var/lib/jenkins/.kube)
     command: kubectl apply -f ~/workspace/UdacityCapstoneProject-CD-Job/deployment.yaml
   - name: update deployment (with rollout restart) 
     command: kubectl rollout restart deployment.v1.apps/udacity-deployment
