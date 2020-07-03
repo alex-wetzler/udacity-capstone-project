@@ -26,7 +26,7 @@
   - name: tag docker image
     command: docker tag udacity-capstone-project:latest 731758322990.dkr.ecr.eu-central-1.amazonaws.com/udacity-capstone-project:latest
   - name: remove old image from Amazon ECR
-    command: aws ecr batch-delete-image --repository-name udacity-capstone-project --image-ids imageTag=latest
+    command: aws ecr batch-delete-image --region eu-central-1 --repository-name udacity-capstone-project --image-ids imageTag=latest
     ignore_errors: yes
   - name: push new image to Amazon ECR
     command: docker push 731758322990.dkr.ecr.eu-central-1.amazonaws.com/udacity-capstone-project:latest
