@@ -8,7 +8,8 @@
   #- name: authenticate to ECR
   #  command: docker login 731758322990.dkr.ecr.eu-central-1.amazonaws.com
   - name: create deplyoment
-    command: kubectl apply -f ~/workspace/UdacityCapstoneProject-CD-Job/deployment.yaml
+    #command: kubectl apply -f ~/workspace/UdacityCapstoneProject-CD-Job/deployment.yaml
+    command: kubectl apply -f ~/workspace/udacity-capstone-project/deployment.yaml
   - name: update deployment (with rollout restart) 
     command: kubectl rollout restart deployment.v1.apps/udacity-deployment
   - name: create service
