@@ -5,16 +5,6 @@
   #user: root
 
   tasks:
-  #- name: test
-  #  shell: |
-  #    cd ~
-  #    whoami
-  #    aws configure list
-  #    pwd
-  #    ls workspace/UdacityCapstoneProject-CI-Job/*.html
-  #  register: shell_result
-  #- debug:
-  #    var: shell_result.stdout_lines
   - name: lint application
     shell: 
       cmd: tidy -q -e index.html

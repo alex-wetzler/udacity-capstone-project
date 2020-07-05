@@ -3,13 +3,23 @@
   gather_facts: false
 
   tasks:
+  
+  - name: list s3 buckets
+    command: aws s3 ls
+    register: result
   - name: create S3 bucket if not exist
     command: aws s3 mb s3://k8sconfig.udacity.net
+    when: result.stdout.find('test.udacity.net') == -1
     ignore_errors: yes
   #- name: create SSH key
   #  command: ssh-keygen
-  #- name: export S3 bucket name
-  #  command: export KOPS_STATE_STORE=s3://k8sconfig.udacity.net
+  - name: export S3 bucket name
+    shell: export KOPS_STATE_STORE=s3://k8sconfig.udacity.net
+  - name: list exports
+    shell: export
+    register: exports
+  - debug:
+      var: exports.stdout_lines
   - name: create cluster configuration
     command: kops create cluster \
         --name k8s.udacity.net \
@@ -26,13 +36,7 @@
         --ssh-public-key ~/.ssh/id_rsa.pub
   - name: spin up cluster with config
     command: kops update cluster --name k8s.udacity.net --yes
-  - nane: validate cluster
-    command: kops validate cluster --name k8s.udacity.net
-
-#- name: Wait for servers to come online
-#  wait_for:
-#    host: "{{ item.public_ip }}"
-#    port: 80
-#    timeout: 180
-#  with_items: "{{ ec2_instances.tagged_instances }}"
-#  ignore_errors: True
+  #- name: validate cluster
+  #  command: kops validate cluster --name k8s.udacity.net
+  #- name: delete cluster
+  #  command: kops delete cluster --name k8s.udacity.net --yes
