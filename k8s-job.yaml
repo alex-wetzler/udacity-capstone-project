@@ -18,29 +18,29 @@
     #ignore_errors: yes
   #- name: create SSH key
   #  shell: ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa <<<y 2>&1 >/dev/null
-  - name: export S3 bucket name
-    shell: export KOPS_STATE_STORE=s3://k8sconfig.udacity.net
+ # - name: export S3 bucket name
+  #  shell: export KOPS_STATE_STORE=s3://k8sconfig.udacity.net
   - name: list exports
     shell: export
     register: exports
   - debug:
       var: exports.stdout_lines
-  - name: create cluster configuration
-    command: kops create cluster \
-      --name k8s.udacity.net \
-      --state ${KOPS_STATE_STORE} \
-      --cloud aws \
-      --master-size t2.micro \
-      --master-count 1 \
-      --master-zones eu-central-1a \
-      --node-size t2.micro \
-      --node-count 2 \
-      --zones eu-central-1a,eu-central-1b \
-      --dns-zone udacity.net \
-      --dns private  \
-      --ssh-public-key ~/.ssh/id_rsa.pub
-  - name: spin up cluster with config
-    command: kops update cluster --name k8s.udacity.net --yes
+  # - name: create cluster configuration
+  #   command: kops create cluster \
+  #     --name k8s.udacity.net \
+  #     --state ${KOPS_STATE_STORE} \
+  #     --cloud aws \
+  #     --master-size t2.micro \
+  #     --master-count 1 \
+  #     --master-zones eu-central-1a \
+  #     --node-size t2.micro \
+  #     --node-count 2 \
+  #     --zones eu-central-1a,eu-central-1b \
+  #     --dns-zone udacity.net \
+  #     --dns private  \
+  #     --ssh-public-key ~/.ssh/id_rsa.pub
+  # - name: spin up cluster with config
+  #   command: kops update cluster --name k8s.udacity.net --yes
   #- name: validate cluster
   #  command: kops validate cluster --name k8s.udacity.net
   #- name: delete cluster
