@@ -6,11 +6,13 @@
   
   - name: list s3 buckets
     command: aws s3 ls
-    register: result
-  - name: create S3 bucket if not exist
+    register: buckets
+  - name: create S3 bucket if not exists
     command: aws s3 mb s3://k8sconfig.udacity.net
-    when: result.stdout.find('test.udacity.net') == -1
-    ignore_errors: yes
+    when: buckets.stdout.find('test.udacity.net') == -1
+  - debug:
+      var: buckets.stdout_lines
+    #ignore_errors: yes
   #- name: create SSH key
   #  command: ssh-keygen
   - name: export S3 bucket name
