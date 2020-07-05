@@ -2,8 +2,8 @@
   hosts: local
   gather_facts: false
 
-  environment:
-    KOPS_STATE_STORE: s3://k8sconfig.udacity.net
+#  environment:
+#    KOPS_STATE_STORE: s3://k8sconfig.udacity.net
 
   tasks:
   
