@@ -13,8 +13,8 @@
   - debug:
       var: buckets.stdout_lines
     #ignore_errors: yes
-  #- name: create SSH key
-  #  command: ssh-keygen
+  - name: create SSH key
+    command: ssh-keygen
   - name: export S3 bucket name
     shell: export KOPS_STATE_STORE=s3://k8sconfig.udacity.net
   - name: list exports
