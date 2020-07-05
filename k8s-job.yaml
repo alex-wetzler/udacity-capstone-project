@@ -22,20 +22,20 @@
     register: exports
   - debug:
       var: exports.stdout_lines
-  - name: create cluster configuration
-    command: kops create cluster \
-        --name k8s.udacity.net \
-        --state ${KOPS_STATE_STORE} \
-        --cloud aws \
-        --master-size t2.micro \
-        --master-count 1 \
-        --master-zones eu-central-1a \
-        --node-size t2.micro \
-        --node-count 2 \
-        --zones eu-central-1a,eu-central-1b \
-        --dns-zone udacity.net \
-        --dns private  \
-        --ssh-public-key ~/.ssh/id_rsa.pub
+  # - name: create cluster configuration
+  #   command: kops create cluster \
+  #       --name k8s.udacity.net \
+  #       --state ${KOPS_STATE_STORE} \
+  #       --cloud aws \
+  #       --master-size t2.micro \
+  #       --master-count 1 \
+  #       --master-zones eu-central-1a \
+  #       --node-size t2.micro \
+  #       --node-count 2 \
+  #       --zones eu-central-1a,eu-central-1b \
+  #       --dns-zone udacity.net \
+  #       --dns private  \
+  #       --ssh-public-key ~/.ssh/id_rsa.pub
   - name: spin up cluster with config
     command: kops update cluster --name k8s.udacity.net --yes
   #- name: validate cluster
