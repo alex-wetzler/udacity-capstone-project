@@ -9,6 +9,6 @@ spec:
   selector:
     app: udacity-capstone-project
   ports:
-    - nodePort: 31479
+    - nodePort: 31300
       port: 80
       targetPort: 80

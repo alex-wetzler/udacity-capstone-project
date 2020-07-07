@@ -1,5 +1,0 @@
-#SERVER_NAME: http://192.168.178.30/
-FILE_PATH: /var/www/html
-STUDENT_NAME: Alex Wetzler
-ELB_NAME: X
-USER_DATA: X
