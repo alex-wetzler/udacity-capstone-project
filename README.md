@@ -31,4 +31,4 @@ This project was created as part of Udacity's Cloud DevOps Engineer Nanodegree p
 8. Execute the pipeline "K8s-Job" and verify the cluster is up and running with the command "kops validate cluster --name k8s.udacity.net --state s3://k8sconfig.udacity.net" (the cluster creation usually takes 5-10 minutes)
 9. Execute the pipeline "CI-Job" and verify both pipelines ("CI-Job", "CD-Job") were executed successfully
 10. Open inbound port 31300 for the security group of the K8s master node in the AWS console
-11. The application should now be accessible through http://<k8s-master-node-name>:31300
+11. The application should now be accessible through http://k8s-master-node-name:31300
