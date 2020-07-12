@@ -18,7 +18,12 @@ pipeline {
                 }
             }
         }
-        stage('CI Job') {
+        stage('Test Job') {
+            steps {
+                ansiblePlaybook playbook: 'main.yaml', inventory: 'inventory'
+            }
+        }
+        /*stage('CI Job') {
             steps {
                 ansiblePlaybook playbook: 'ci-job.yaml', inventory: 'inventory'
             }
@@ -27,6 +32,6 @@ pipeline {
             steps { 
                 ansiblePlaybook playbook: 'cd-job.yaml', inventory: 'inventory'
             }
-        }
+        }*/
     }
 }

@@ -1,0 +1,8 @@
+- name: Test-Job
+  hosts: local
+  gather_facts: false
+
+  tasks:
+  
+  - name: list buckets
+    command: aws s3 ls
