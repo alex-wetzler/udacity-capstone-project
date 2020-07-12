@@ -11,6 +11,7 @@ This project was created as part of Udacity's Cloud DevOps Engineer Nanodegree p
 ## Files
 - Dockerfile -> Instructions for assembling the Docker image
 - Makefile -> Directives for set-up of environment and linting of Dockerfile
+- Jenkinsfile -> Definition for creation of CI/CD pipeline 
 - README.md -> Description of project, repository, files and usage
 - cd-job.yaml -> Ansible playbook for CD pipeline
 - ci-job.yaml -> Ansible playbook for CI pipeline
